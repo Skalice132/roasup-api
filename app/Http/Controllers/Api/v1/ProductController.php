@@ -3,33 +3,34 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductStoreRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index()
     {
-        $products = ProductResource::collection(Product::all());
-
-        return $products;
+        return ProductResource::collection(Product::paginate(5));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param ProductStoreRequest $request
      * @return ProductResource
      */
-    public function store(Request $request)
+    public function store(ProductStoreRequest $request)
     {
-        $created_product = Product::create($request->all());
+        $created_product = Product::create($request->validated());
 
         return new ProductResource($created_product);
     }
@@ -37,12 +38,12 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Product $articul
+     * @return ProductResource
      */
-    public function show($articul)
+    public function show(Product $product)
     {
-
+        return new ProductResource($product);
     }
 
     /**
@@ -50,11 +51,11 @@ class ProductController extends Controller
      *
      * @param Request $request
      * @param Product $product
-     * @return Product
+     * @return ProductResource
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductStoreRequest $request, Product $product)
     {
-        $product->update($request->all());
+        $product->update($request->validated());
 
         return new ProductResource($product);
     }
@@ -62,11 +63,13 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Product $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return response(null, Response::HTTP_NO_CONTENT);
     }
 }

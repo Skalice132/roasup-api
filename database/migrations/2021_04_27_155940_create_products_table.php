@@ -15,9 +15,10 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 255);
+            $table->string('name', 50);
             $table->string('articul', 50)->index()->unique();
             // Противоестественно делать это поле строкой
+            // Ладно, проще было строкой.
             $table->integer('category_id');
             $table->float('price',4,2);
             $table->timestamps();
