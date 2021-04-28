@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('articul', 50)->index()->unique();
             // Противоестественно делать это поле строкой
             $table->integer('category_id');
-            $table->integer('price');
+            $table->float('price',4,2);
             $table->timestamps();
         });
     }
