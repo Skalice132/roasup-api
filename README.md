@@ -35,10 +35,10 @@ API должно содержать маршруты:
 
 ### Обязательно измените файл .env:
 
- DB_HOST=localhost
- DB_DATABASE=homestead
- DB_USERNAME=homestead
- DB_PASSWORD=secret 
+ DB_HOST=localhost  
+ DB_DATABASE=homestead  
+ DB_USERNAME=homestead  
+ DB_PASSWORD=secret   
 
 ### Генерация ключа приложения:
 
