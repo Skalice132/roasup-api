@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductStoreRequest;
 use App\Http\Resources\ProductResource;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -71,5 +72,17 @@ class ProductController extends Controller
         $product->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function productByCategory($category, $id=null)
+    {
+        $category_id = Category::where('name', $category)->first()->id;
+        $products = Category::find($category_id)->products()->get();
+
+        if ($id){
+            return $products->where('id', $id);
+        }
+
+        return $products;
     }
 }

@@ -48,6 +48,10 @@ API должно содержать маршруты:
 
 ``` php artisan migrate --seed ```
 
+### Запустить сервер:
+
+``` php artisan serve ```
+
 ### Проверить список роутов:
 
 ``` php artisan route:list ```
