@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\v1\CategoryController;
 use App\Http\Controllers\Api\v1\ProductController;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,4 +27,4 @@ Route::apiResources([
     'categories' => CategoryController::class,
 ]);
 
-Route::get('/{category}/{id?}', [ProductController::class, 'productByCategory']);
+Route::get('/{slug}/{id?}', [ProductController::class, 'productByCategory']);

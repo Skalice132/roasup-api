@@ -55,3 +55,5 @@ API должно содержать маршруты:
 ### Проверить список роутов:
 
 ``` php artisan route:list ```
+
+Для удобства тестирования через Postman, в корневой папке есть файл "Roasup Test Collection.postman_collection.json".

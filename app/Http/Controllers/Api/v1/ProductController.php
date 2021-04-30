@@ -4,12 +4,11 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductStoreRequest;
+use App\Http\Requests\ProductUpdateRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -50,11 +49,11 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param ProductUpdateRequest $request
      * @param Product $product
      * @return ProductResource
      */
-    public function update(ProductStoreRequest $request, Product $product)
+    public function update(ProductUpdateRequest $request, Product $product)
     {
         $product->update($request->validated());
 
@@ -74,9 +73,10 @@ class ProductController extends Controller
         return response(null, Response::HTTP_NO_CONTENT);
     }
 
+    # TODO Исправить! Пока такой код я осуждаю.
     public function productByCategory($category, $id=null)
     {
-        $category_id = Category::where('name', $category)->first()->id;
+        $category_id = Category::where('slug', $category)->first()->id;
         $products = Category::find($category_id)->products()->get();
 
         if ($id){

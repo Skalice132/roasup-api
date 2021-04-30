@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('articul', 50)->index()->unique();
             // Противоестественно делать это поле строкой
             // Ладно, проще было строкой.
+            // Хотя... и так сойдет
             $table->integer('category_id');
             $table->float('price',4,2);
             $table->timestamps();
